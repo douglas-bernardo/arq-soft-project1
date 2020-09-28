@@ -1,0 +1,52 @@
+{% extends "template.html" %}
+
+{% block content %}
+
+{% for item in items %}
+    <div class="row align-self-center" id="item">
+
+        <div class="col d-flex justify-content-center">
+
+          <div class="card border-light mb-3 mt-3" style="max-width: 700px;">
+
+            <div class="row no-gutters">
+        
+                <div class="col-md-4 align-self-center">
+        
+                    <img src="{{item.url_image}}" class="card-img" alt="...">
+        
+                </div>
+        
+                <div class="col-md-8">
+        
+                    <div class="card-body">
+        
+                        <h5 class="card-title">{{item.nome}}</h5>
+        
+                        <p class="card-text">{{item.descricao}}</p>
+        
+                        <div class="btn-group btn-group-sm" role="group">
+                            <button type="button" class="btn btn-info btn-sm" onclick="load_page('?class=ProdutoForm&method=update&id={{item.id}}')">Alterar</button>
+                            <button type="button" class="btn btn-danger btn-sm" id="delete_item" data-action='?class=ProdutoList&method=delete' data-id='{{item.id}}'>Excluir</button>
+                        </div>
+        
+                    </div>
+                  
+                </div>
+              
+        
+            </div>
+        
+        </div>
+
+      </div>
+
+    </div>
+    
+{% endfor %}
+
+{% endblock %}
+
+{% block script %} 
+  <script src="App/View/js/produto_list.js"></script>
+{% endblock %}

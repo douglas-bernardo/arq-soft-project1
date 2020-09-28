@@ -1,0 +1,31 @@
+{
+    "name": "arq-sistemas/projeto1",
+    "description": "Projeto aplicado utilizando padrões GRASP e GOF",
+    "minimum-stability": "stable",
+    "authors": [{
+        "name": "Jackson Douglas",
+        "email": "jacksondouglas@edu.unifor.br",
+        "role": "Developer"
+    }],
+    "config": {
+        "vendor-dir": "vendor"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "App/",
+            "Library\\": "Library/"
+        },
+        "classmap": [
+            "App/Controller",
+            "App/Model"
+        ],
+        "files": [
+            "Library/Helpers/Config.php"
+        ]
+    },
+    "require": {
+        "twig/twig": "^3.0",
+        "coffeecode/uploader": "^1.0",
+        "coffeecode/cropper": "^1.3"
+    }
+}

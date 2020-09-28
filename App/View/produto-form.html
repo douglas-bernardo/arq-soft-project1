@@ -1,0 +1,63 @@
+{% extends "template.html" %}
+
+{% block content %}
+<!-- {{ dump(item) }} -->
+<div class="d-flex justify-content-center">
+
+  <div class="col align-self-center" style="max-width: 700px;">
+
+    <form class="novo_item" id="novo_item" action="?class=ProdutoForm&method=create" enctype="multipart/form-data">
+
+        {% if item.id %}
+          <input type="hidden" name="id" value="{{ item.id }}">
+        {% endif %}
+
+        <div class="form-group">
+          <label for="exampleFormControlSelect1">Categoria</label>
+          <select class="form-control" name="categoria_id" id="exampleFormControlSelect1">
+            <option value="0" disabled selected>Selecione uma categoria</option>
+            {% for category in categories %}
+              <option value="{{category.id}}">{{category.descricao}}</option>
+            {% endfor %}
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label for="exampleFormControlInput1">Nome do item</label>
+          <input type="text" class="form-control" name="nome" value="{{ item.nome ? item.nome : '' }}" id="exampleFormControlInput1">
+        </div>
+        
+        <div class="form-group">
+          <label for="exampleFormControlInput1">Estoque</label>
+          <input type="number" min="0" class="form-control" name="qtd_estoque" value="{{ item.qtd_estoque ? item.qtd_estoque : '' }}" id="exampleFormControlInput1">
+        </div>
+
+        <div class="form-group">
+          <label for="exampleFormControlTextarea1">Descrição</label>
+          <textarea class="form-control" name="descricao" id="exampleFormControlTextarea1" rows="3">{{ item.descricao ? item.descricao : '' }}</textarea>
+        </div>
+
+        {% if item.id == false %}
+        <div class="form-group">
+            <div class="custom-file">
+              <label class="custom-file-label text-truncate" for="customFile">Escolha uma foto de no ({{ item.max_size }})</label>
+              <input type="file" class="custom-file-input" id="customFile" name="image" lang="pt-br">
+            </div>        
+        </div>
+        {% endif %}
+        
+        <div class="d-flex justify-content-end">
+          <button type="submit" class="btn btn-info">Salvar Item</button>
+        </div>      
+
+      </form>
+      
+  </div>
+
+</div>
+
+{% endblock %}
+
+{% block script %} 
+  <script src="App/View/js/produto_form.js"></script>
+{% endblock %}
