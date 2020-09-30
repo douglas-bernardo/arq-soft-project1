@@ -14,7 +14,7 @@ class CategoriaList extends Page
         $this->template = $this->twig->load('categoria-list.html');
     }
 
-    public function home()
+    public function index()
     {
         $data = array();
         try {

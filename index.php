@@ -4,7 +4,6 @@ require __DIR__ . '/vendor/autoload.php';
 
 $content = '';
 
-//$template = file_get_contents('App/Template/template.html');
 $class = 'ProdutoList';
 
 if (isset($_GET['class'])){
@@ -15,7 +14,7 @@ if (class_exists($class)) {
     try {
         $page = new $class;
         ob_start();
-        ($_GET) ? $page->index() : $page->home();
+        ($_GET) ? $page->run() : $page->index();
         $content = ob_get_contents();
         ob_end_clean();
     } catch (\Exception $e) {
@@ -26,7 +25,3 @@ if (class_exists($class)) {
 }
 
 echo $content;
-
-// $output = str_replace('{content}', $content, $template);
-
-//echo $output;

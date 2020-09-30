@@ -6,6 +6,12 @@ use Library\Database\Criteria;
 use Library\Database\Repository;
 use Library\Database\Transaction;
 
+/**
+ * Implementação classe controller
+ * High Cohesion - Divisão conforme responsabilidade
+ *               - uso de demais classes para completar suas atividades
+ *               - Poucos métodos
+ */
 class ProdutoList extends Page
 {
 
@@ -15,26 +21,35 @@ class ProdutoList extends Page
         $this->template = $this->twig->load('produto-list.html');
     }
 
-    public function home()
+    /**
+     * Lista os produtos cadastrados no sistema
+     *
+     * @return void
+     */
+    public function index(): void
     {
         $data = array();
-        try {            
+        try {
+
+            /**
+             * Information Expert
+             * aciona a classe responsável por recuperar objetos da classe Produto:
+             */
             Transaction::open('self_menu');
             $repository = new Repository('Produto');
             $criteria = new Criteria();
             $criteria->setProperty('order', 'id desc');
             $objects = $repository->load($criteria);
             
-            if ($objects) {
-                $cropper = new Cropper("App/Include/images/cache");
-                foreach ($objects as $obj) {
-                    $url = str_replace('http://localhost/arq-sis-projeto01/', '', $obj->url_image);  
-                    $obj->url = $cropper->make($url, 200, 200);
-                    $products[] = $obj;                
-                  }
-                  $data = ["products" => $products];
-            }
+            /**
+             * Miniaturas
+             */
+            $products = $this->makeThumbnail($objects);
+            $data = ["products" => $products];
 
+            /**
+             * envia os dados para a camada de visão:
+             */
             echo $this->template->render($data);            
             Transaction::close();
 
@@ -44,32 +59,59 @@ class ProdutoList extends Page
         }        
     }
 
-    public function delete($param)
+    /**
+     * Deleta um produto da base
+     *
+     * @param [mixed] $param
+     * @return void
+     */
+    public function delete($param): void
     {
-        $response = new stdClass;
+
         try {
+            /**
+             * validações da GUI
+             */
             if (empty($param['id'])) {
                 return;
             }
-
             $id = filter_var($param['id'], FILTER_VALIDATE_INT);
 
-            Transaction::open('self_menu');
-            
+            /**
+             * aciona a classe responsável por recuperar um registro do bd e 
+             * realiza a exclusão
+             */
+            Transaction::open('self_menu');            
             $item = Produto::find($id);
             if ($item) {
                 $item->delete();
-            }         
-            
+            }            
             Transaction::close();
 
-            echo json_encode($response->status = "success");
+            /**
+             * envia a confirmação para a camada de visão:
+             */
+            echo json_encode(['status' => 'success']);
             return;
             
         } catch (\Exception $e) {
             Transaction::rollback();
             echo json_encode(["status" => "error", "data" => message($e->getMessage(),'danger',true)]);
         }
+    }
+
+    private function makeThumbnail(array $objects): array
+    {
+        $array = array();
+        if ($objects) {
+            $cropper = new Cropper("App/Include/images/cache");
+            foreach ($objects as $obj) {
+                $url = str_replace(BASE_URL.'/', '', $obj->url_image);
+                $obj->url = $cropper->make($url, 200, 200);
+                $array[] = $obj;                
+              }              
+        }
+        return $array;
     }
 
 }

@@ -1,54 +1,60 @@
 <?php
 namespace Library\Database;
 
-use Library\Log\Logger;
+use Library\Log\Log;
 
+/**
+ * Pattern: Singleton
+ * Type: Padrões de criação
+ */
 final class Transaction 
 {   
-    //final class não pode ser super classe
+    
+    private static $conn; 
+    private static $logger;
 
-    private static $conn; //conexão ativa - atributos estaticos pertencem a classe n ao obj
-    private static $logger;//objeto de log
-
-    //marcando o construtor como 'private' a classe só poderá ter instancias dentro do escopo da propria classe (Transaction)
     private function __construct(){} 
 
-    public static function open($database){//recebe o nome do arquivo .ini
-        if(empty(self::$conn))//checa se não há uma transação ativa
+    public static function open($database)
+    {
+        if(empty(self::$conn))
         {
             self::$conn = Connection::open($database);
-            self::$conn->beginTransaction();//inicia a transação
-            self::$logger = NULL; //desliga o log de SQL
+            self::$conn->beginTransaction();
+            self::$logger = null;
         }
     }
 
-    public static function get(){
-        return self::$conn;//retorna a conexão ativa
+    public static function get()
+    {
+        return self::$conn;
     }
 
-    public static function rollback(){
+    public static function rollback()
+    {
         if (self::$conn){
-            self::$conn->rollback(); //desfaz as operações realizadas
+            self::$conn->rollback();
             self::$conn = NULL;
         }
     }
 
-    public static function close(){
+    public static function close()
+    {
         if (self::$conn){
-            self::$conn->commit(); //aplica as operções realizadas
+            self::$conn->commit();
             self::$conn = NULL;
         }
     }
-    //recebe a instancia de alguma classe concreta filha da classe abstrata Logger (LoggerXML ou LoggerTXT)
-    public static function setLogger(Logger $logger)
-    {//injeção de dependencia
+    
+    public static function setLogger(Log $logger)
+    {
         self::$logger = $logger;
     }
 
     public static function log($message)
     {
         if (self::$logger) {
-            self::$logger->write($message);
+            self::$logger->info($message);
         }
     }
 }

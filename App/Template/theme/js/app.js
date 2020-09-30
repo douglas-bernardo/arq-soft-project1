@@ -1,11 +1,9 @@
 $( document ).ready(function() {
 
-
     if (sessionStorage.getItem('item_registered_success') != null) {
         $(".main_dialog").html(sessionStorage.getItem('item_registered_success')).fadeIn().show();    
         sessionStorage.removeItem('item_registered_success');
     }
-
 
     $('.nav .nav-item a').on("click", function (e) {
         e.preventDefault();
@@ -43,7 +41,6 @@ function load_page(page) {
       }).done(function (resp) {
             $("body").html("");
             $("body").html(resp);
-
       }).fail(function (resp) {
           alert("Erro");
     });

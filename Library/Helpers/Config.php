@@ -30,3 +30,25 @@ function message(string $message, string $type = "info", bool $closable = false)
     $close .= "<span aria-hidden='true'>&times;</span></button>";
     return "<div class='alert alert-{$type}' alert-dismissible fade show role='alert'>{$message}" . ( $closable ? $close : '') . "</div>";
 }
+
+/**
+ * SMTP Conf
+ */
+
+ define('CONF_SMTP_MAIL_SB', [
+     'host' => 'smtp.sendgrid.net',
+     'port' => '587',
+     'user' => 'apikey',
+     'pass' => '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',
+     'from_name' => 'Suporte Self Menu',
+     'from_email' => 'jkdouglas21@gmail.com'
+ ]);
+
+ define('CONF_SMTP_MAIL_AWS', [
+    'host' => 'smtp.gmail.com',
+    'port' => '587',
+    'user' => 'jacksondouglas@edu.unifor.br',
+    'pass' => '87140368',
+    'from_name' => 'Suporte Self Menu',
+    'from_email' => 'jacksondouglas@edu.unifor.br'
+]);

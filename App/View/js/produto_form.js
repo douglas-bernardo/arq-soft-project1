@@ -21,14 +21,14 @@ $(function () {
             processData: false,
             contentType: false,
             async: true,
-            success: function (response) {
-                if (response.status == 'error') {
-                    $(".main_dialog").html(response.data).fadeIn().show();
-                    return;
-                }
-                sessionStorage.setItem('item_registered_success', response.data );
-                window.location.href = "index.php";
-            },
+            
+        }).done(function (response) {
+            if (response.status == 'error') {
+                $(".main_dialog").html(response.data).fadeIn().show();
+                return;
+            }
+            sessionStorage.setItem('item_registered_success', response.data );
+            window.location.href = "index.php";
         });
 
     });

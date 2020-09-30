@@ -17,7 +17,7 @@ abstract class Record
 
     public function __construct(int $id = NULL)
     {
-        if($id){//se o ID for informado carrega o OBJ correspondente
+        if($id){
             $object = $this->load($id);
             if($object){
                 $this->fromArray($object->toArray());
@@ -83,8 +83,7 @@ abstract class Record
 
     public function getEntity()
     {
-        $class = get_class($this); //obtém o nome da classe
-        //Retorna o valor da constante TABLENAME presente na classe filha de Record, instanciada 
+        $class = get_class($this);
         return constant("{$class}::TABLENAME"); 
     }
 

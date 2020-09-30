@@ -26,6 +26,15 @@ class ComposerStaticInit0f89d104f0ee2d95efc175ada8c1d952
             'Symfony\\Polyfill\\Mbstring\\' => 26,
             'Symfony\\Polyfill\\Ctype\\' => 23,
         ),
+        'P' => 
+        array (
+            'Psr\\Log\\' => 8,
+            'PHPMailer\\PHPMailer\\' => 20,
+        ),
+        'M' => 
+        array (
+            'Monolog\\' => 8,
+        ),
         'L' => 
         array (
             'Library\\' => 8,
@@ -62,6 +71,18 @@ class ComposerStaticInit0f89d104f0ee2d95efc175ada8c1d952
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-ctype',
         ),
+        'Psr\\Log\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/log/Psr/Log',
+        ),
+        'PHPMailer\\PHPMailer\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
+        ),
+        'Monolog\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/monolog/monolog/src/Monolog',
+        ),
         'Library\\' => 
         array (
             0 => __DIR__ . '/../..' . '/Library',
@@ -87,6 +108,7 @@ class ComposerStaticInit0f89d104f0ee2d95efc175ada8c1d952
     public static $classMap = array (
         'Categoria' => __DIR__ . '/../..' . '/App/Model/Categoria.php',
         'CategoriaList' => __DIR__ . '/../..' . '/App/Controller/CategoriaList.php',
+        'ControleEstoque' => __DIR__ . '/../..' . '/App/Controller/ControleEstoque.php',
         'NotFound' => __DIR__ . '/../..' . '/App/Controller/NotFound.php',
         'Produto' => __DIR__ . '/../..' . '/App/Model/Produto.php',
         'ProdutoForm' => __DIR__ . '/../..' . '/App/Controller/ProdutoForm.php',
