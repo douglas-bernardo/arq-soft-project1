@@ -9,7 +9,7 @@ class ControleEstoque implements Subject
 
     public function atualizaEstoqueProduto(Produto $produto)
     {
-        if($produto->qtd_estoque < 3){
+        if($produto->qtd_estoque < 5){
             $this->notificarObserver($produto->toArray());
         }
     }

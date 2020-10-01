@@ -1,5 +1,17 @@
 <tr>
     <td>{{category.id}}</td>
     <td>{{category.descricao}}</td>
-    <td>{{ category.ativo ? 'Ativo' : 'Inativo' }}</td>               
+    <td>
+        <input type="checkbox" 
+               class="toggle-event"
+               id="toggle-event"
+               {% if category.ativo %} checked="checked" {% endif %} 
+               data-toggle="toggle" 
+               data-size="sm"
+               data-on="Ativo" 
+               data-off="Inativo" 
+               data-onstyle="info"
+               data-id='{{category.id}}'
+               data-action='?class=CategoriaList&method=changeStatus'>
+    </td>
 </tr>

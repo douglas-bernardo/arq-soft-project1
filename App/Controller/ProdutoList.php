@@ -45,7 +45,7 @@ class ProdutoList extends Page
              * Miniaturas
              */
             $products = $this->makeThumbnail($objects);
-            $data = ["products" => $products];
+            $data = ["products" => $products, 'title' => 'Produtos'];
 
             /**
              * envia os dados para a camada de visão:

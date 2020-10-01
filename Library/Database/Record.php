@@ -200,11 +200,15 @@ abstract class Record
         return $ar->load($id);
     }
 
-    public static function all()
+    public static function all(Filter $filter = null)
     {
+        $criteria = new Criteria;
+        if ($filter) {
+            $criteria->add($filter);
+        }
         $classname = get_called_class();
         $rep = new Repository($classname);
-        return $rep->load(new Criteria);
+        return $rep->load($criteria);
     }
 
     public function getLast()

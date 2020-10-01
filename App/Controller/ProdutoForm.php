@@ -1,7 +1,9 @@
 <?php
 
+use CoffeeCode\Uploader\File;
 use CoffeeCode\Uploader\Image;
 use Library\Control\Page;
+use Library\Database\Filter;
 use Library\Database\Transaction;
 
 /**
@@ -22,12 +24,13 @@ class ProdutoForm extends Page
     {
         try {
             Transaction::open('self_menu');
-            $categories = (new Categoria())->all();
+            $categories = (new Categoria())->all(new Filter('ativo', '=', true));
             $data = [
                 "item"=>["max_size"=>"max. " . ini_get("upload_max_filesize")],
-                "categories" => $categories
-            
+                "categories" => $categories,
+                "title" => "Novo Item"
             ];
+
             echo $this->template->render($data);
             Transaction::close();
 

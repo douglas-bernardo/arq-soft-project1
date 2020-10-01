@@ -15,12 +15,11 @@ class EmailObserver implements Observer
     public function enviaEmailEstoque($data)
     {
         $email = new Email;
-
         $email->add(
             "Self Menu | Estoque Report",
             "<p>Produto: " . $data['nome'] . ", com estoque em baixa! <br> Estoque atual: " . $data['qtd_estoque'] ."</p>",
             "Equipe Self Menu",
-            "jkdouglas21@gmail.com"
-        )->send();        
+            "jacksondouglas@edu.unifor.br"
+        )->send();
     }
 }

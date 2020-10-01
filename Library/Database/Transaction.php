@@ -13,7 +13,7 @@ final class Transaction
     private static $conn; 
     private static $logger;
 
-    private function __construct(){} 
+    private function __construct(){}
 
     public static function open($database)
     {

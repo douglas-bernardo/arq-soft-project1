@@ -21,14 +21,18 @@ $(function () {
             processData: false,
             contentType: false,
             async: true,
-            
+            beforeSend: function () {
+                $(".spinner").css("display", "flex");
+            }
         }).done(function (response) {
+            $(".spinner").css("display", "flex");
             if (response.status == 'error') {
                 $(".main_dialog").html(response.data).fadeIn().show();
                 return;
             }
             sessionStorage.setItem('item_registered_success', response.data );
-            window.location.href = "index.php";
+            load_page("?class=ProdutoList");
+            
         });
 
     });

@@ -13,14 +13,8 @@ $( document ).ready(function() {
         }
 
         var $this = $(this),
-        href = $this.attr("href");
-        
+        href = $this.attr("href");        
         load_page(href);
-        location.href = "#" + href;
-
-        var pag = href.split('=');
-        var stateObj = { id: pag[1] }; 
-        history.replaceState(stateObj, "Pilot | " + pag[1], href);
 
     });
 
@@ -39,9 +33,15 @@ function load_page(page) {
         dataType: 'html',
         async: true
       }).done(function (resp) {
+            //handler url
+            location.href = "#" + page;
+            var pag = page.split('=');
+            var stateObj = { id: pag[1] }; 
+            history.replaceState(stateObj, "Pilot | " + pag[1], page);
+            //load
             $("body").html("");
             $("body").html(resp);
       }).fail(function (resp) {
-          alert("Erro");
+          console.log("Erro no carregamento da página");
     });
 }

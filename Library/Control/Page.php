@@ -25,7 +25,7 @@ abstract class Page
                 $loader, 
                 [
                     "debug" => true,
-                    "auto_reload" => true, 
+                    "auto_reload" => true,
                     "cache" => false
                 ]
             );
