@@ -23,7 +23,6 @@ $(function () {
                     //obj_form.trigger("reset");
                 }                
                 $(".main_dialog").html(response.data).fadeIn().show();
-
             }
         });
 
@@ -32,7 +31,6 @@ $(function () {
     $('input.toggle-event[type=checkbox]').change(function() {
         var data = $(this).data();
         data.status = $(this).prop('checked') ? "1" : "0";
-        console.log(data);
         $.ajax({
             url: data.action,
             data: {id: data.id, status: data.status},

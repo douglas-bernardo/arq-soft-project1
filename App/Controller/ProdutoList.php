@@ -1,5 +1,7 @@
 <?php
+namespace App\Controller;
 
+use App\Model\Produto;
 use CoffeeCode\Cropper\Cropper;
 use Library\Control\Page;
 use Library\Database\Criteria;
@@ -36,7 +38,7 @@ class ProdutoList extends Page
              * aciona a classe responsável por recuperar objetos da classe Produto:
              */
             Transaction::open('self_menu');
-            $repository = new Repository('Produto');
+            $repository = new Repository(Produto::class);
             $criteria = new Criteria();
             $criteria->setProperty('order', 'id desc');
             $objects = $repository->load($criteria);
@@ -55,7 +57,7 @@ class ProdutoList extends Page
 
         } catch (\Exception $e) {
             Transaction::rollback();
-            echo json_encode(["status" => "error", "data" => message($e->getMessage(),'danger',true)]);
+            echo json_encode(["status" => "error", "data" => message("erro: " . $e->getMessage(),'danger',true)]);
         }        
     }
 

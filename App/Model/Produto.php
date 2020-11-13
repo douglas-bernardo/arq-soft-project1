@@ -1,5 +1,7 @@
 <?php
+namespace App\Model;
 
+use App\Controller\ControleEstoque;
 use Library\Database\Record;
 use Library\Support\EmailObserver;
 use Library\Support\TelegramObserver;
@@ -20,9 +22,8 @@ class Produto extends Record
      */
     public function atualizaEstoque(): void
     {
-        
         $estoque = new ControleEstoque;
-        //$estoque->addObserver(new EmailObserver);
+        $estoque->addObserver(new EmailObserver);
         $estoque->addObserver(new TelegramObserver);
         $estoque->atualizaEstoqueProduto($this);
     }

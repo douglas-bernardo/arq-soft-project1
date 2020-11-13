@@ -1,5 +1,7 @@
 <?php
+namespace App\Controller;
 
+use App\Model\Produto;
 use Library\Support\Observer;
 use Library\Support\Subject;
 

@@ -27,12 +27,12 @@ $(function () {
         }).done(function (response) {
             $(".spinner").css("display", "flex");
             if (response.status == 'error') {
+                $(".spinner").css("display", "none");
                 $(".main_dialog").html(response.data).fadeIn().show();
                 return;
             }
             sessionStorage.setItem('item_registered_success', response.data );
             load_page("?class=ProdutoList");
-            
         });
 
     });

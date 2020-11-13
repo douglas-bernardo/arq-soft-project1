@@ -258,4 +258,9 @@ abstract class Record
             return "NULL";
         }
     }
+
+    public function __toString()
+    {
+        return "Product: {$this->name}";
+    }
 }

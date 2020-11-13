@@ -1,6 +1,7 @@
 App/Tmp/*
 App/Config/*
+App/Storage/*
 App/Tmp/logs/*
 App/Include/images/*
 App/Include/images/cache/*
-Library/Helpers/*
+Library/Cache/*

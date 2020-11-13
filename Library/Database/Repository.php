@@ -4,7 +4,7 @@ namespace Library\Database;
 final class Repository
 {   
 
-    private $activeRecord;//classe manipulada pelo repositorio
+    private $activeRecord;
 
     function __construct($class)
     {

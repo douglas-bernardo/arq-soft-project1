@@ -14,7 +14,7 @@ class Log
 
     private Logger $logger;    
 
-    public function __construct(string $channel_name) 
+    public function __construct(string $channel_name)
     {
         $this->logger = new Logger($channel_name);
     }

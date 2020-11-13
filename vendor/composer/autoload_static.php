@@ -7,6 +7,7 @@ namespace Composer\Autoload;
 class ComposerStaticInit0f89d104f0ee2d95efc175ada8c1d952
 {
     public static $files = array (
+        '950e8c5ec01dc90f029c243f73011631' => __DIR__ . '/..' . '/goaop/parser-reflection/src/bootstrap.php',
         '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
         '9278fa6d91f52e7d64d0a6918f2e83c6' => __DIR__ . '/../..' . '/Library/Helpers/Config.php',
@@ -25,10 +26,12 @@ class ComposerStaticInit0f89d104f0ee2d95efc175ada8c1d952
         array (
             'Symfony\\Polyfill\\Mbstring\\' => 26,
             'Symfony\\Polyfill\\Ctype\\' => 23,
+            'Symfony\\Component\\Finder\\' => 25,
         ),
         'P' => 
         array (
             'Psr\\Log\\' => 8,
+            'PhpParser\\' => 10,
             'PHPMailer\\PHPMailer\\' => 20,
         ),
         'M' => 
@@ -42,6 +45,17 @@ class ComposerStaticInit0f89d104f0ee2d95efc175ada8c1d952
         'I' => 
         array (
             'ImageMimeTypeGuesser\\' => 21,
+        ),
+        'G' => 
+        array (
+            'Go\\ParserReflection\\' => 20,
+            'Go\\' => 3,
+        ),
+        'D' => 
+        array (
+            'Doctrine\\Common\\Lexer\\' => 22,
+            'Doctrine\\Common\\Cache\\' => 22,
+            'Doctrine\\Common\\Annotations\\' => 28,
         ),
         'C' => 
         array (
@@ -71,9 +85,17 @@ class ComposerStaticInit0f89d104f0ee2d95efc175ada8c1d952
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-ctype',
         ),
+        'Symfony\\Component\\Finder\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/finder',
+        ),
         'Psr\\Log\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/log/Psr/Log',
+        ),
+        'PhpParser\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser',
         ),
         'PHPMailer\\PHPMailer\\' => 
         array (
@@ -91,6 +113,26 @@ class ComposerStaticInit0f89d104f0ee2d95efc175ada8c1d952
         array (
             0 => __DIR__ . '/..' . '/rosell-dk/image-mime-type-guesser/src',
         ),
+        'Go\\ParserReflection\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/goaop/parser-reflection/src',
+        ),
+        'Go\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/goaop/framework/src',
+        ),
+        'Doctrine\\Common\\Lexer\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/doctrine/lexer/lib/Doctrine/Common/Lexer',
+        ),
+        'Doctrine\\Common\\Cache\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/doctrine/cache/lib/Doctrine/Common/Cache',
+        ),
+        'Doctrine\\Common\\Annotations\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/doctrine/annotations/lib/Doctrine/Common/Annotations',
+        ),
         'CoffeeCode\\Uploader\\' => 
         array (
             0 => __DIR__ . '/..' . '/coffeecode/uploader/src',
@@ -105,14 +147,18 @@ class ComposerStaticInit0f89d104f0ee2d95efc175ada8c1d952
         ),
     );
 
+    public static $prefixesPsr0 = array (
+        'D' => 
+        array (
+            'Dissect' => 
+            array (
+                0 => __DIR__ . '/..' . '/jakubledl/dissect/src',
+            ),
+        ),
+    );
+
     public static $classMap = array (
-        'Categoria' => __DIR__ . '/../..' . '/App/Model/Categoria.php',
-        'CategoriaList' => __DIR__ . '/../..' . '/App/Controller/CategoriaList.php',
-        'ControleEstoque' => __DIR__ . '/../..' . '/App/Controller/ControleEstoque.php',
-        'NotFound' => __DIR__ . '/../..' . '/App/Controller/NotFound.php',
-        'Produto' => __DIR__ . '/../..' . '/App/Model/Produto.php',
-        'ProdutoForm' => __DIR__ . '/../..' . '/App/Controller/ProdutoForm.php',
-        'ProdutoList' => __DIR__ . '/../..' . '/App/Controller/ProdutoList.php',
+        'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
@@ -120,6 +166,7 @@ class ComposerStaticInit0f89d104f0ee2d95efc175ada8c1d952
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInit0f89d104f0ee2d95efc175ada8c1d952::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInit0f89d104f0ee2d95efc175ada8c1d952::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit0f89d104f0ee2d95efc175ada8c1d952::$prefixesPsr0;
             $loader->classMap = ComposerStaticInit0f89d104f0ee2d95efc175ada8c1d952::$classMap;
 
         }, null, ClassLoader::class);

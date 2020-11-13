@@ -7,28 +7,28 @@ use Twig\Loader\FilesystemLoader;
 
 /**
  * Pattern: Page Controller
- * 
  */
 abstract class Page
 {
-    
+
     protected $template;
     protected $twig;
 
-    public function __construct() {
+    public function __construct()
+    {        
         $loader = new FilesystemLoader([
             'App/Template/theme',
             'App/View/fragments',
             'App/View'
         ]);
         $this->twig = new Environment(
-                $loader, 
-                [
-                    "debug" => true,
-                    "auto_reload" => true,
-                    "cache" => false
-                ]
-            );
+            $loader,
+            [
+                "debug" => true,
+                "auto_reload" => true,
+                "cache" => false
+            ]
+        );
         $this->twig->addExtension(new \Twig\Extension\DebugExtension());
     }
 
@@ -39,9 +39,10 @@ abstract class Page
             $method = isset($_GET['method']) ? $_GET['method'] : "index";
             $data   = (!empty($_POST)) ? $_POST : $_GET;
             if ($class) {
+                $class = 'App\Controller\\' . $class;
                 $object = ($class == get_class($this)) ? $this : new $class;
                 if (method_exists($object, $method)) {
-                    call_user_func( [ $object, $method ], $data );
+                    call_user_func([$object, $method], $data);
                 } else {
                     header("Location: ?class=NotFound");
                 }
