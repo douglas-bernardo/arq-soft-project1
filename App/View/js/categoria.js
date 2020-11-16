@@ -5,15 +5,15 @@ $(function () {
         e.preventDefault();
         var obj_form = $(this);
         var formData = obj_form.serialize();
-        
+
         $.ajax({
             url: obj_form.attr("action"),
             data: formData,
             type: 'POST',
-            dataType:'json',
+            dataType: 'json',
             success: function (response) {
                 if (response.status == 'success') {
-                    sessionStorage.setItem('item_registered_success', response.message );
+                    sessionStorage.setItem('item_registered_success', response.message);
                     load_page("?class=CategoriaList");
 
                     // no carregamento via include do twig o css não atualizava 
@@ -21,23 +21,27 @@ $(function () {
                     //$(".main_dialog").html(response.message).fadeIn().show();
                     //$('#category-table').prepend(response.data);
                     //obj_form.trigger("reset");
-                }                
+                }
                 $(".main_dialog").html(response.data).fadeIn().show();
             }
         });
 
     });
 
-    $('input.toggle-event[type=checkbox]').change(function() {
+    $('input.toggle-event[type=checkbox]').change(function () {
         var data = $(this).data();
         data.status = $(this).prop('checked') ? "1" : "0";
         $.ajax({
             url: data.action,
-            data: {id: data.id, status: data.status},
+            data: { id: data.id, status: data.status },
             type: 'POST',
-            dataType:'json'
-        }).done(function(resp){
-            console.log(resp);
+            dataType: 'json'
+        }).done(function (response) {
+            if (response.status == 'error') {
+                $(".main_dialog").html(response.data).fadeIn().show();
+            }
+        }).fail(function (response) {
+            $(".main_dialog").html(response.data).fadeIn().show();
         });
     })
 

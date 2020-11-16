@@ -13,10 +13,14 @@ use Monolog\Handler\StreamHandler;
 class CategoriaList extends Page
 {
 
-    public function __construct() 
+    private Log $logger;
+
+    public function __construct()
     {
         parent::__construct();
         $this->template = $this->twig->load('categoria-list.html');
+        $this->logger = new Log('category');
+        $this->logger->addHandler(new StreamHandler('App/Tmp/logs/category.log', $this->logger::DEBUG));
     }
 
     public function index()
@@ -25,7 +29,7 @@ class CategoriaList extends Page
         try {
 
             Transaction::open('self_menu');
-            
+
             $repository = new Repository('App\Model\Categoria');
             $criteria = new Criteria();
             $criteria->setProperty('order', 'id desc');
@@ -34,50 +38,55 @@ class CategoriaList extends Page
             echo $this->template->render($data);
 
             Transaction::close();
-            
+
         } catch (\Exception $e) {
             Transaction::rollback();
-            echo json_encode(["status" => "error", "data" => message($e->getMessage(),'danger',true)]);
-        }        
+            $this->logger->info('Error: ' . $e->getMessage(), ['class' => get_class($this), 'method' => explode('::', __METHOD__)[1]]);
+            echo json_encode(["status" => "error", "data" => message('Algo deu errado :(', 'danger', true)]);
+        }
     }
 
     public function create($data): void
     {
-        $response = new \stdClass;
+
         try {
+
+            $response = new \stdClass;
             $catData = filter_var_array($data, FILTER_SANITIZE_STRING);
 
             if (in_array("", $catData)) {
                 $response->status = 'error';
                 $response->data = message(
-                    'Preencha os campos para criar uma nova categoria', 'danger', true
+                    'Preencha os campos para criar uma nova categoria',
+                    'danger',
+                    true
                 );
                 echo json_encode($response);
                 return;
             }
-            
+
             Transaction::open('self_menu');
 
             $categoria = new Categoria();
             $categoria->fromArray($catData);
+            $categoria->fake_field = 'anything';
             $categoria->store();
 
             Transaction::close();
 
             $response->status = 'success';
             $response->message = message('Categoria criada com sucesso!', 'success', true);
-            $response->data = $this->twig->load('categoria.html')->render( ['category' => $categoria] );
-            
+            $response->data = $this->twig->load('categoria.html')->render(['category' => $categoria]);
             echo json_encode($response);
-
         } catch (\Exception $e) {
             Transaction::rollback();
-            echo json_encode(["status" => "error", "data" => message($e->getMessage(),'danger',true)]);
+            $this->logger->info('Error: ' . $e->getMessage(), ['class' => get_class($this), 'method' => explode('::', __METHOD__)[1]]);
+            echo json_encode(["status" => "error", "data" => message('Algo deu errado :(', 'danger', true)]);
         }
     }
 
     public function changeStatus(array $param)
-    {      
+    {
 
         try {
 
@@ -89,26 +98,22 @@ class CategoriaList extends Page
 
             Transaction::open('self_menu');
 
-            $item = Categoria::find($id);            
+            $item = Categoria::find($id);
 
             if ($item) {
                 $item->ativo = $status ? "1" : "0";
+                $item->fake_field = 'anything';
                 $item->store();
             }
-
-            $log = new Log('update_category');
-            $log->addHandler(new StreamHandler('App/Tmp/logs/update_category.log', $log::DEBUG));
-            $log->info('Category status was changed');
 
             Transaction::close();
 
             echo json_encode(['status' => 'success', 'data' => $item->toArray()]);
-            return;
             
         } catch (\Exception $e) {
             Transaction::rollback();
-            echo json_encode(["status" => "error", "data" => message($e->getMessage(),'danger',true)]);
+            $this->logger->info('Error: ' . $e->getMessage(), ['class' => get_class($this), 'method' => explode('::', __METHOD__)[1]]);
+            echo json_encode(["status" => "error", "data" => message('Algo deu errado :(', 'danger', true)]);
         }
     }
-
 }

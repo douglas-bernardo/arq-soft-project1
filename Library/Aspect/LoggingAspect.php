@@ -2,6 +2,7 @@
 
 namespace Library\Aspect;
 
+use App\Model\Categoria;
 use Go\Aop\Aspect;
 use Go\Aop\Intercept\FieldAccess;
 use Go\Aop\Intercept\MethodInvocation;
@@ -12,9 +13,6 @@ use Go\Lang\Annotation\Pointcut;
 use Library\Log\Log;
 use Monolog\Handler\StreamHandler;
 
-/**
- * Profilador aspect
- */
 class LoggingAspect implements Aspect
 {
     /**
@@ -36,9 +34,10 @@ class LoggingAspect implements Aspect
      */
     public function afterMethodExecution(MethodInvocation $invocation)
     {
+        $args = $invocation->getArguments()[0];
         $logger = new Log('create_product');
         $logger->addHandler(new StreamHandler('App/Tmp/logs/create_product.log', $logger::DEBUG));
-        $logger->info('A new product was created. ' . $invocation->getMethod()->getName());
+        $logger->info('A new product "' . $args['nome'] . '"  was created. ' . $invocation->getMethod()->getName());
     }
 
     /**
@@ -48,18 +47,8 @@ class LoggingAspect implements Aspect
      */
     public function afterChangeCategoryStatus(MethodInvocation $invocation)
     {
-        
         $logger = new Log('update_category');
         $logger->addHandler(new StreamHandler('App/Tmp/logs/update_category.log', $logger::DEBUG));
         $logger->info('Category status was changed');
-
-        // echo 'Calling Before Interceptor for method: ',
-        //      is_object($obj) ? get_class($obj) : $obj,
-        //      $invocation->getMethod()->isStatic() ? '::' : '->',
-        //      $invocation->getMethod()->getName(),
-        //      '()',
-        //      ' with arguments: ',
-        //      json_encode($invocation->getArguments()),
-        //      "<br>\n";
     }
 }

@@ -54,6 +54,6 @@ class TransactionManagerAspect implements Aspect
         $logger->addHandler(new StreamHandler('App/Tmp/logs/transaction_exception.log', $logger::DEBUG));
         $logger->info('Error on transaction method: ' . $exception->getMessage());
         echo json_encode(["status" => "error", "data" => message($exception->getMessage(),'danger',true)]);
-        exit; //important!
+        exit;
     }
 }

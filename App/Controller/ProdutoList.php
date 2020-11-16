@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Controller;
 
 use App\Model\Produto;
@@ -7,6 +8,8 @@ use Library\Control\Page;
 use Library\Database\Criteria;
 use Library\Database\Repository;
 use Library\Database\Transaction;
+use Library\Log\Log;
+use Monolog\Handler\StreamHandler;
 
 /**
  * Implementação classe controller
@@ -16,11 +19,14 @@ use Library\Database\Transaction;
  */
 class ProdutoList extends Page
 {
+    private Log $logger;
 
     public function __construct() 
     {
         parent::__construct();
         $this->template = $this->twig->load('produto-list.html');
+        $this->logger = new Log('product');
+        $this->logger->addHandler(new StreamHandler('App/Tmp/logs/product.log', $this->logger::DEBUG));
     }
 
     /**
@@ -30,34 +36,29 @@ class ProdutoList extends Page
      */
     public function index(): void
     {
-        $data = array();
+        
         try {
 
-            /**
-             * Information Expert
-             * aciona a classe responsável por recuperar objetos da classe Produto:
-             */
+            $data = array();
+
             Transaction::open('self_menu');
+
             $repository = new Repository(Produto::class);
             $criteria = new Criteria();
             $criteria->setProperty('order', 'id desc');
             $objects = $repository->load($criteria);
             
-            /**
-             * Miniaturas
-             */
             $products = $this->makeThumbnail($objects);
             $data = ["products" => $products, 'title' => 'Produtos'];
 
-            /**
-             * envia os dados para a camada de visão:
-             */
-            echo $this->template->render($data);            
+            echo $this->template->render($data);
+
             Transaction::close();
 
         } catch (\Exception $e) {
             Transaction::rollback();
-            echo json_encode(["status" => "error", "data" => message("erro: " . $e->getMessage(),'danger',true)]);
+            $this->logger->info('Error: ' . $e->getMessage(), ['class' => get_class($this), 'method' => explode('::', __METHOD__)[1]]);
+            echo json_encode(["status" => "error", "data" => message('Algo deu errado :(', 'danger', true)]);
         }        
     }
 
@@ -71,34 +72,28 @@ class ProdutoList extends Page
     {
 
         try {
-            /**
-             * validações da GUI
-             */
+
             if (empty($param['id'])) {
                 return;
             }
             $id = filter_var($param['id'], FILTER_VALIDATE_INT);
 
-            /**
-             * aciona a classe responsável por recuperar um registro do bd e 
-             * realiza a exclusão
-             */
-            Transaction::open('self_menu');            
+            Transaction::open('self_menu');    
+
             $item = Produto::find($id);
             if ($item) {
                 $item->delete();
-            }            
+            }    
+
             Transaction::close();
 
-            /**
-             * envia a confirmação para a camada de visão:
-             */
             echo json_encode(['status' => 'success']);
             return;
             
         } catch (\Exception $e) {
             Transaction::rollback();
-            echo json_encode(["status" => "error", "data" => message($e->getMessage(),'danger',true)]);
+            $this->logger->info('Error: ' . $e->getMessage(), ['class' => get_class($this), 'method' => explode('::', __METHOD__)[1]]);
+            echo json_encode(["status" => "error", "data" => message('Algo deu errado :(', 'danger', true)]);
         }
     }
 

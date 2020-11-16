@@ -1,9 +1,15 @@
 <?php
 
+namespace App\Controller;
+
+use App\Model\Categoria;
+use App\Model\Produto;
 use CoffeeCode\Uploader\Image;
 use Library\Control\Page;
 use Library\Database\Filter;
 use Library\Database\Transaction;
+use Library\Log\Log;
+use Monolog\Handler\StreamHandler;
 
 /**
  * Implementação classe controller
@@ -13,16 +19,22 @@ use Library\Database\Transaction;
  */
 class ProdutoForm extends Page
 {
+    private Log $logger;
+
     public function __construct() 
     {
         parent::__construct();
         $this->template = $this->twig->load('produto-form.html');
+        $this->logger = new Log('product');
+        $this->logger->addHandler(new StreamHandler('App/Tmp/logs/product.log', $this->logger::DEBUG));
     }
     
     public function index(): void
     {
         try {
+
             Transaction::open('self_menu');
+
             $categories = (new Categoria())->all(new Filter('ativo', '=', true));
             $data = [
                 "item"=>["max_size"=>"max. " . ini_get("upload_max_filesize")],
@@ -31,11 +43,13 @@ class ProdutoForm extends Page
             ];
 
             echo $this->template->render($data);
-            Transaction::close();
 
+            Transaction::close();
+            
         } catch (\Exception $e) {
             Transaction::rollback();
-            echo json_encode(["status" => "error", "data" => message($e->getMessage(),'danger',true)]);
+            $this->logger->info('Error: ' . $e->getMessage(), ['class' => get_class($this), 'method' => explode('::', __METHOD__)[1]]);
+            echo json_encode(["status" => "error", "data" => message('Algo deu errado :(', 'danger', true)]);
         }        
     }
 
@@ -47,9 +61,9 @@ class ProdutoForm extends Page
      */
     public function create($data): void
     {
-        $response = new stdClass;
-
         try {
+
+            $response = new \stdClass;
 
             $itemData = filter_var_array($data, FILTER_SANITIZE_STRING);           
             $this->validateForm($itemData);
@@ -71,7 +85,8 @@ class ProdutoForm extends Page
 
         } catch (\Exception $e) {
             Transaction::rollback();
-            echo json_encode(["status" => "error", "data" => message($e->getMessage(),'danger',true)]);
+            $this->logger->info('Error: ' . $e->getMessage(), ['class' => get_class($this), 'method' => explode('::', __METHOD__)[1]]);
+            echo json_encode(["status" => "error", "data" => message('Algo deu errado :(', 'danger', true)]);
         }
     }
 
@@ -82,10 +97,12 @@ class ProdutoForm extends Page
             if (isset($param['id'])) {                
 
                 Transaction::open('self_menu');
+
                 $item = Produto::find($param['id']);            
                 if ($item) {
                     $data["item"] = $item->toArray();
                 }
+                
                 Transaction::close();
 
                 $data["item"]["max_size"] = "max. " . ini_get("upload_max_filesize");
@@ -93,7 +110,8 @@ class ProdutoForm extends Page
             }
         } catch (\Exception $e) {
             Transaction::rollback();
-            echo json_encode(["status" => "error", "data" => $e->getMessage()]);
+            $this->logger->info('Error: ' . $e->getMessage(), ['class' => get_class($this), 'method' => explode('::', __METHOD__)[1]]);
+            echo json_encode(["status" => "error", "data" => message('Algo deu errado :(', 'danger', true)]);
         }
     }
 

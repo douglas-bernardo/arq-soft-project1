@@ -25,6 +25,7 @@ class ProdutoForm extends Page
 
     /**
      * @Transactional
+     * 
      * @return void
      */
     public function index(): void
@@ -40,6 +41,7 @@ class ProdutoForm extends Page
 
     /**
      * @Transactional
+     * 
      * @param array $data
      * @return void
      */
