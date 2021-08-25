@@ -5,3 +5,6 @@ App/Tmp/logs/*
 App/Include/images/*
 App/Include/images/cache/*
 Library/Cache/*
+.idea/
+vendor/
+Library/Helpers/Config.php

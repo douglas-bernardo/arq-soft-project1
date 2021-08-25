@@ -69,13 +69,13 @@ class ProdutoForm extends Page
             $this->validateForm($itemData);
             $pathImage = $this->validateImage();
             
-            Transaction::open('self_menu');
+            Transaction::open('self_menu'); // IT
 
             $item = new Produto();
             $item->fromArray($itemData);
             $item->url_image = isset($pathImage) ? $pathImage : $item->url_image;
             $item->store();
-            $item->atualizaEstoque();
+            //$item->atualizaEstoque();
             
             Transaction::close();
 
@@ -135,7 +135,7 @@ class ProdutoForm extends Page
                 exit;
             } else {
                 $uploaded = $upload->upload($file, pathinfo($file['name'], PATHINFO_FILENAME), 350);
-                return str_replace('/var/www/arq-sis-projeto01', BASE_URL, $uploaded);
+                return str_replace('/var/www/menu-digital-aop', BASE_URL, $uploaded);
             }                
         }
     }

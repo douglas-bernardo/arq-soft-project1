@@ -1,7 +1,7 @@
-$( document ).ready(function() {
+$(document).ready(function () {
 
     if (sessionStorage.getItem('item_registered_success') != null) {
-        $(".main_dialog").html(sessionStorage.getItem('item_registered_success')).fadeIn().show();    
+        $(".main_dialog").html(sessionStorage.getItem('item_registered_success')).fadeIn().show();
         sessionStorage.removeItem('item_registered_success');
     }
 
@@ -9,17 +9,17 @@ $( document ).ready(function() {
         e.preventDefault();
 
         if (history.state == null) {
-            history.pushState({id: "index"}, "Home", "http://localhost/arq-sis-projeto01/");
+            history.pushState({ id: "index" }, "Home", "http://localhost/menu-digital-aop/");
         }
 
-        var $this = $(this),
-        href = $this.attr("href");        
+        var $this = $(this);
+        var href = $this.attr("href");
         load_page(href);
 
     });
 
-    window.onpopstate = function(e){
-        if(e.state){
+    window.onpopstate = function (e) {
+        if (e.state) {
             load_page(document.location.href);
         }
     };
@@ -27,21 +27,15 @@ $( document ).ready(function() {
 });
 
 function load_page(page) {
-    $.ajax({
-        url: page,
-        data: [],
-        dataType: 'html',
-        async: true
-      }).done(function (resp) {
-            //handler url
+    fetch(page)
+        .then(function (response) {
+            return response.text();
+        })
+        .then((html) => {
             location.href = "#" + page;
             var pag = page.split('=');
-            var stateObj = { id: pag[1] }; 
+            var stateObj = { id: pag[1] };
             history.replaceState(stateObj, "Pilot | " + pag[1], page);
-            //load
-            $("body").html("");
-            $("body").html(resp);
-      }).fail(function (resp) {
-          console.log("Erro no carregamento da página");
-    });
+            $("body").html(html);
+        });
 }

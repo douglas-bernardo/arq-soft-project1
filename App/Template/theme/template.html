@@ -1,72 +1,82 @@
 <!doctype html>
 <html lang="pt-br">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="shortcut icon" href="#" type="image/x-icon">
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="App/Template/theme/css/bootstrap.min.css">
-    <link rel="stylesheet" href="App/Template/theme/css/template.css">
-    <link rel="stylesheet" href="App/Template/theme/css/bootstrap4-toggle.min.css">
-       
-    {% block title %} {% endblock %}
 
-  </head>
-  <body>
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="shortcut icon" href="#" type="image/x-icon">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="App/Template/theme/css/bootstrap.min.css">
+  <link rel="stylesheet" href="App/Template/theme/css/template.css">
+  <link rel="stylesheet" href="App/Template/theme/css/bootstrap4-toggle.min.css">
 
-    <div class="container mt-3">
-        <div class="spinner">
-          <img src="App/Template/svg/Spinner-1s-200px.svg" width="100" alt=""> 
-        </div>
-        <!-- Jumbotron Painel -->        
-        <div class="jumbotron jumbotron-fluid">
-          <div class="container">
-            <h1 class="display-4">Self Menu</h1>
-            <p class="lead">O que você gostaria de experimentar hoje?</p>
-          </div>
-        </div>
-        
-        <!-- Navbar -->
-          <ul class="nav justify-content-center">
-            <li class="nav-item">
-                <!-- <button type="button" class="btn btn-outline-info mr-3 active">Items Menu</button> -->
-                <!-- onclick="load_page('index.php')" -->
-                <a class="btn btn-outline-info mr-3" href="?class=ProdutoList">Lista de Items</a>
-            </li>
-            <li class="nav-item">
-              <!-- onclick="load_page('?class=ProdutoForm') -->
-                <!-- <button type="button" class="btn btn-outline-info mr-3" data-action="?class=NewItemController">Novo</button> -->
-                <a class="btn btn-outline-info mr-3" href="?class=ProdutoForm">Novo Item</a>
-            </li>
+  {% block title %} {% endblock %}
 
-            
-            <li class="nav-item">
-              <!-- onclick="load_page('?class=CategoriaList')" -->
-                <a class="btn btn-outline-info mr-3" href="?class=CategoriaList">Categoria</a> 
-            </li>
+</head>
 
-          </ul>
+<body>
 
-        <!-- main content -->
-        <div id="main" class="main mt-5 mb-5">
+  <div class="container mt-3">
 
-            <div class="main_dialog"></div>
-            {% block content %}{% endblock %}
-        </div>
+    <div class="spinner">
+      <img src="App/Template/svg/Spinner-1s-200px.svg" width="100" alt="">
+    </div>
+    <!-- Jumbotron Painel -->
+    <div class="jumbotron jumbotron-fluid">
+      <div class="container">
+        <h1 class="display-4">Menu Digital</h1>
+        <p class="lead">O que você gostaria de experimentar hoje?</p>
+      </div>
+    </div>
+
+    <!-- Navbar -->
+    <ul class="nav justify-content-center">
+      <li class="nav-item">
+        <!-- <button type="button" class="btn btn-outline-info mr-3 active">Items Menu</button> -->
+        <!-- onclick="load_page('index.php')" -->
+        <a class="btn btn-outline-info mr-3" href="?class=ProdutoList">Lista de Items</a>
+      </li>
+      <li class="nav-item">
+        <!-- onclick="load_page('?class=ProdutoForm') -->
+        <!-- <button type="button" class="btn btn-outline-info mr-3" data-action="?class=NewItemController">Novo</button> -->
+        <a class="btn btn-outline-info mr-3" href="?class=ProdutoForm">Novo Item</a>
+      </li>
+
+
+      <li class="nav-item">
+        <!-- onclick="load_page('?class=CategoriaList')" -->
+        <a class="btn btn-outline-info mr-3" href="?class=CategoriaList">Categoria</a>
+      </li>
+
+    </ul>
+
+    <!-- main content -->
+    <div id="main" class="main mt-5 mb-5">
+
+      <div class="main_dialog">
+      </div>
+
+      {% block content %}{% endblock %}
 
     </div>
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script type="text/javascript" src="App/Template/theme/js/jquery-3.5.1.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="App/Template/theme/js/bootstrap.js"></script>
-    <!-- https://gitbrent.github.io/bootstrap4-toggle/ -->
-    <script type="text/javascript" src="App/Template/theme/js/bootstrap4-toggle.min.js"></script>
-    <script type="text/javascript" src="App/Template/theme/js/app.js"></script>
+  </div>
 
-    {% block script %} {% endblock %}
 
-  </body>
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script type="text/javascript" src="App/Template/theme/js/jquery-3.5.1.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+    integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+    crossorigin="anonymous"></script>
+  <script type="text/javascript" src="App/Template/theme/js/bootstrap.js"></script>
+  <!-- https://gitbrent.github.io/bootstrap4-toggle/ -->
+  <script type="text/javascript" src="App/Template/theme/js/bootstrap4-toggle.min.js"></script>
+  <script type="text/javascript" src="App/Template/theme/js/app.js"></script>
+
+  {% block script %} {% endblock %}
+
+</body>
+
 </html>

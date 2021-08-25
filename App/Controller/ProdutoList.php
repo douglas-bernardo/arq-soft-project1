@@ -41,7 +41,7 @@ class ProdutoList extends Page
 
             $data = array();
 
-            Transaction::open('self_menu');
+            Transaction::open('menu_digital');
 
             $repository = new Repository(Produto::class);
             $criteria = new Criteria();
@@ -78,7 +78,7 @@ class ProdutoList extends Page
             }
             $id = filter_var($param['id'], FILTER_VALIDATE_INT);
 
-            Transaction::open('self_menu');    
+            Transaction::open('menu_digital');    
 
             $item = Produto::find($id);
             if ($item) {

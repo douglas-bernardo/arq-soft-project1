@@ -1,12 +1,12 @@
 -- -----------------------------------------------------
--- Schema self_menu
+-- Schema menu_digital
 -- -----------------------------------------------------
-DROP SCHEMA IF EXISTS `self_menu` ;
-CREATE DATABASE self_menu default charset utf8 collate utf8_general_ci;
+DROP SCHEMA IF EXISTS `menu_digital` ;
+CREATE DATABASE menu_digital default charset utf8 collate utf8_general_ci;
 use self_menu;
 
 -- -----------------------------------------------------
--- Table `self_menu`.`categoria`
+-- Table `menu_digital`.`categoria`
 -- -----------------------------------------------------
 CREATE TABLE categoria (
 	id int(11) NOT NULL AUTO_INCREMENT,
@@ -16,7 +16,7 @@ CREATE TABLE categoria (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- -----------------------------------------------------
--- Table `self_menu`.`produto`
+-- Table `menu_digital`.`produto`
 -- -----------------------------------------------------
 CREATE TABLE produto (
 	id int(11)  NOT NULL AUTO_INCREMENT,

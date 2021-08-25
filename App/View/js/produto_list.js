@@ -1,5 +1,4 @@
 $(function () {
-    
     $('button[id="delete_item"]').on("click", function (e) {
         e.preventDefault();
         var data = $(this).data();

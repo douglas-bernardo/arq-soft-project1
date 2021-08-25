@@ -2,14 +2,10 @@
 
 namespace Library\Aspect;
 
-use App\Model\Categoria;
 use Go\Aop\Aspect;
-use Go\Aop\Intercept\FieldAccess;
 use Go\Aop\Intercept\MethodInvocation;
 use Go\Lang\Annotation\After;
 use Go\Lang\Annotation\Before;
-use Go\Lang\Annotation\Around;
-use Go\Lang\Annotation\Pointcut;
 use Library\Log\Log;
 use Monolog\Handler\StreamHandler;
 

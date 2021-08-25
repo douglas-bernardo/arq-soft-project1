@@ -3,15 +3,11 @@
 namespace Library\Aspect;
 
 use Go\Aop\Aspect;
-use Go\Aop\Intercept\FieldAccess;
 use Go\Aop\Intercept\MethodInvocation;
 use Go\Lang\Annotation\After;
 use Go\Lang\Annotation\Before;
-use Go\Lang\Annotation\Around;
-use Go\Lang\Annotation\Pointcut;
 use Go\Lang\Annotation\AfterThrowing;
 use Library\Database\Transaction;
-use Exception;
 use Library\Log\Log;
 use Monolog\Handler\StreamHandler;
 
@@ -27,7 +23,7 @@ class TransactionManagerAspect implements Aspect
      */
     public function beginTransaction(MethodInvocation $invocation)
     {
-        Transaction::open('self_menu');
+        Transaction::open('menu_digital');
     }
 
     /**
@@ -53,7 +49,7 @@ class TransactionManagerAspect implements Aspect
         $logger = new Log('transaction_exception');
         $logger->addHandler(new StreamHandler('App/Tmp/logs/transaction_exception.log', $logger::DEBUG));
         $logger->info('Error on transaction method: ' . $exception->getMessage());
-        echo json_encode(["status" => "error", "data" => message($exception->getMessage(),'danger',true)]);
+        echo json_encode(["status" => "error", "data" => message('<span>&#128577;</span> Ooops! Algo deu errado. Contate o administrador.','danger',true)]);
         exit;
     }
 }
