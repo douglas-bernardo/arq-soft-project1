@@ -18,7 +18,7 @@
 - [Sobre](#-sobre)
 - [Tecnologias Utilizadas](#-tecnologias-utilizadas)
 - [Como baixar o projeto](#-como-baixar-o-projeto)
-- [Features](#-features)
+- [Features](#-features-básicas)
 
 &nbsp;
 
