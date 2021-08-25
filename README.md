@@ -18,7 +18,7 @@
 - [Sobre](#-sobre)
 - [Tecnologias Utilizadas](#-tecnologias-utilizadas)
 - [Como baixar o projeto](#-como-baixar-o-projeto)
-- [Features](#-features-basicas)
+- [Features](#-features)
 
 &nbsp;
 
@@ -57,7 +57,7 @@ Este projeto foi desenvolvido utilizando as seguintes tecnologias:
 ## 🗂 Como baixar o projeto
 ---
 ### Pré-requisitos
-### Pré-requisitos
+
 Antes de começar, você vai precisar montar um ambiente padrão para desenvolvimento web em PHP (Recomendo fortemente uma pilha [LAMP](https://www.digitalocean.com/community/tutorials/how-to-install-linux-apache-mysql-php-lamp-stack-on-ubuntu-20-04-pt)).
 - PHP 7.4+
 - Apache 2.4+
@@ -96,15 +96,16 @@ php8.0-common php8.0-mysql php8.0-xml php8.0-curl php8.0-gd php8.0-imagick php8.
 
 &nbsp;
 
-## ⚙️ Features Básicas
+## ⚙️ Features
 ---
 
+#### Básicas
 - [x] Cadastro de Produtos
 - [x] Listagem/Edição de Produtos
 - [x] Cadastro de Categorias
 - [x] Listagem/Edição de Categorias
 
-## Features Especiais (AOP)
+#### Especiais (AOP)
 - [x] Envio de alerta de baixa de estoque por E-mail [AWS]
 - [x] Envio de alerta de baixa de estoque por Telegram [BOT]
 - [x] Transactions automatizadas
